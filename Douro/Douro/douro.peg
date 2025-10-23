@@ -3,7 +3,18 @@
 @using Douro.Statements
 @classname DouroParser
 
-print<Print> =
+program<Statement[]>
+	= stmt:statement EOS? rest:program {
+		new Statement[] { stmt }
+	}
+	/ EOF { new Statement[] {} }
+
+statement<Statement>
+	= print
+
+EOS = EOL // End of statement
+
+print<Statement> =
 	"print" _ expr:expression {
 		new Print(expr)
 	};
@@ -26,6 +37,10 @@ number <Expr> =
 	};
 
 _ = [ \t]+ ;
+EOL = [\n\r]+
 
+EOF = !.
+    / unexpected:.
+        #error{ $"Unexpected '{unexpected}' at line {state.Line}, col {state.Column - 1}" }
 
 

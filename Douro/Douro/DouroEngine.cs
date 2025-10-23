@@ -15,9 +15,20 @@ public class DouroEngine {
 		Value v => v,
 		_ => throw new NotImplementedException($"I don't know how to evaluate {expr.GetType()}")
 	};
-	
-	public void Run(Print statement) {
-		var value = Eval(statement.Expr);
-		Console.WriteLine(value);
+	public void Run(Statement statement) {
+		switch (statement) {
+			case Print p:
+				var value = Eval(p.Expr);
+				Console.WriteLine(value);
+				break;
+			default:
+				throw new NotImplementedException($"I don't know how to run {statement.GetType()}");
+		}
+	}
+
+	public void Run(Statement[] statements) {
+		foreach (var statement in statements) {
+			Run(statement);
+		}
 	}
 }

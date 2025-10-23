@@ -4,7 +4,7 @@ namespace Douro.Values;
 
 public class Number(decimal value) : Value {
 
-	public Number(string digits) : this(Decimal.Parse(digits)) { }
+	public Number(string digits) : this(Decimal.Parse(digits, CultureInfo.InvariantCulture)) { }
 
 	public decimal Value => value;
 
