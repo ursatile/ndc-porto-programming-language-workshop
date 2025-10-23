@@ -1,12 +1,17 @@
 @namespace Douro
 @using Douro.Values
+@using Douro.Statements
 @classname DouroParser
+
+print<Print> =
+	"print" value:number {
+		new Print(value)
+	};
 
 number<Number> =
 	digit:("" [0-9]+) {
 		new Number(digit)
 	};
-
 
 
 
