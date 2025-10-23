@@ -8,8 +8,9 @@ if (args.Length < 1) {
 var filename = args[0];
 var source = File.ReadAllText(filename);
 
+var env = new DouroEnvironment();
 var parser = new DouroParser();
-var engine = new DouroEngine();
+var engine = new DouroEngine(env);
 
 Console.WriteLine(source);
 var program = parser.Parse(source);

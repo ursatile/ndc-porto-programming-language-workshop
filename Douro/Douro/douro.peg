@@ -3,16 +3,46 @@
 @using Douro.Statements
 @classname DouroParser
 
-program<Program>
+program<DouroProgram>
 	= stmt:statement EOS? rest:program {
 		rest.Insert(stmt)
 	}
-	/ EOF { new Program() }
+	/ EOF { new DouroProgram() }
 
 statement<Statement>
-	= print
+	= function
+	/ print
+	/ assign
+	/ return
+
+function <Statement>
+	= "function" _ name:identifier _? '(' args:identifier_list ')' _? '{' _? EOL+
+		_? body:statement_list EOL*
+		'}'
+	{
+			new Assign(name, new Function(args, body))
+	}
+
+statement_list <List<Statement>>
+	= _? head:statement EOS+ tail:statement_list {
+		(new List<Statement> { head }).Concat(tail).ToList()
+	}
+	/ _? stmt:statement { new List<Statement> { stmt } }
+
+return<Statement>
+	= "return" _ expr:expression {
+		new Return(expr)
+	}
+
 
 EOS = EOL // End of statement
+
+identifier = ("" [a-zA-Z_][a-zA-Z0-9_]*)
+
+assign<Statement> =
+	"let" _ name:identifier _? "=" _? expr:expression {
+		new Assign(name, expr)
+	};
 
 print<Statement> =
 	"print" _ expr:expression {
@@ -27,14 +57,36 @@ sum <Expr> -memoize
 	/ product
 
 product <Expr> -memoize
-	= lhs:product _? "/" _? rhs:number { new Binary(lhs, rhs, Operator.Divide) }
-	/ lhs:product _? "*" _? rhs:number { new Binary(lhs, rhs, Operator.Multiply) }
-	/ number
+	= lhs:product _? "/" _? rhs:primary { new Binary(lhs, rhs, Operator.Divide) }
+	/ lhs:product _? "*" _? rhs:primary { new Binary(lhs, rhs, Operator.Multiply) }
+	/ primary
+
+primary
+	= number
+	/ function_call
+	/ lookup
+
+function_call <Expr>
+	= name:identifier _? '(' args:arg_list ')' { new FunctionCall(name, args) }
+
+arg_list<List<Expr>>
+	= head:expression _? ',' _? tail:arg_list
+		{ (new List<Expr> { head }).Concat(tail).ToList() }
+	/ arg:expression { new List<Expr> { arg } }
+
+identifier_list<List<string>>
+	= head:identifier _? ',' _? tail:identifier_list
+		{ (new List<string> { head }).Concat(tail).ToList() }
+	/ name:identifier { new List<string> { name} }
+
+lookup <Expr> = name:identifier {
+		new Lookup(name)
+	}
 
 number <Expr> =
 	digit:("" [0-9]+) {
 		new Number(digit)
-	};
+	}
 
 _ = [ \t]+ ;
 EOL = [\n\r]+
