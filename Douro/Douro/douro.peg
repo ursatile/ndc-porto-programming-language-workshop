@@ -1,5 +1,12 @@
 @namespace Douro
+@using Douro.Values
 @classname DouroParser
 
-number<int> =
-	'2' { 2 };
+number<Number> =
+	digit:("" [0-9]+) {
+		new Number(digit)
+	};
+
+
+
+

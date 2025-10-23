@@ -6,5 +6,11 @@ using Douro;
 // 4: wrap the interpreter in an environment so it works
 
 var parser = new DouroParser();
-var result = parser.Parse("3");
+var result = parser.Parse("1000000000000000000000000000000000000000");
+Console.WriteLine(result);
+
+result = parser.Parse("8");
+Console.WriteLine(result);
+
+result = parser.Parse("9");
 Console.WriteLine(result);
