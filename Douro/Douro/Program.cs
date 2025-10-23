@@ -8,7 +8,7 @@ using Douro;
 
 var parser = new DouroParser();
 var engine = new DouroEngine();
-var source = "print 1 + 2 + 3 + 4";
+var source = "print 1 + 2 * 3 + 4 / 5 + 6 / 7 * 8";
 var program = parser.Parse(source);
 Console.WriteLine(program);
 Console.WriteLine("============");

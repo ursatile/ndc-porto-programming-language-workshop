@@ -8,14 +8,19 @@ print<Print> =
 		new Print(expr)
 	};
 
-expression = sum
+expression <Expr> = sum
 
-sum<Expression>
-	= lhs:number _? "+" _? rhs:sum
-		{ new Binary(lhs, rhs, Operator.Add) }
+sum <Expr> -memoize
+	= lhs:product _? "+" _? rhs:sum	{ new Binary(lhs, rhs, Operator.Add) }
+	/ lhs:product _? "-" _? rhs:sum	{ new Binary(lhs, rhs, Operator.Subtract) }
+	/ product
+
+product <Expr> -memoize
+	= lhs:product _? "/" _? rhs:number { new Binary(lhs, rhs, Operator.Divide) }
+	/ lhs:product _? "*" _? rhs:number { new Binary(lhs, rhs, Operator.Multiply) }
 	/ number
 
-number<Expression> =
+number <Expr> =
 	digit:("" [0-9]+) {
 		new Number(digit)
 	};

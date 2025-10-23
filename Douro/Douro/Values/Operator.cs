@@ -1,4 +1,4 @@
-﻿namespace Douro.Values;
+namespace Douro.Values;
 
 public enum Operator {
 	Add,

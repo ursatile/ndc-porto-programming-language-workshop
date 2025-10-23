@@ -14,10 +14,8 @@ public class Binary(
 		var sb = new System.Text.StringBuilder();
 		sb.AppendLine($"{indent}binary:");
 		sb.AppendLine($"{indent} op: {op}");
-		sb.AppendLine($"{indent}lhs:");
-		sb.AppendLine(lhs.ToString(depth + 2));
-		sb.AppendLine($"{indent}rhs:");
-		sb.AppendLine(rhs.ToString(depth + 2));
+		sb.AppendLine($"{indent} lhs: " + lhs.ToString(depth + 2));
+		sb.AppendLine($"{indent} rhs: " + rhs.ToString(depth + 2));
 		return sb.ToString();
 	} 
 }
