@@ -1,5 +1,4 @@
 using Douro;
-using Douro.Values;
 
 // TODO:
 // 1. Define grammar for output and numbers
@@ -9,14 +8,8 @@ using Douro.Values;
 
 var parser = new DouroParser();
 var engine = new DouroEngine();
-//var source = "print 1 + 2 + 3 + 4 + 5";
-//var program = parser.Parse(source);
-//Console.WriteLine(program);
-//Console.WriteLine("============");
-//engine.Run(program);
-
-
-var program = new Binary(
-	new Number("2"),
-	new Number("4"),
-	Operator.Add);
+var source = "print 1 + 2 + 3 + 4";
+var program = parser.Parse(source);
+Console.WriteLine(program);
+Console.WriteLine("============");
+engine.Run(program);

@@ -1,10 +1,14 @@
 namespace Douro.Values;
 
 public class Binary(
-	Expression lhs,
-	Expression rhs,
+	Expr lhs,
+	Expr rhs,
 	Operator op)
-	: Expression {
+	: Expr {
+	public Operator Operator => op;
+	public Expr Lhs => lhs;
+	public Expr Rhs => rhs;
+	
 	public override string ToString(int depth = 0) {
 		var indent = new string(' ', depth);
 		var sb = new System.Text.StringBuilder();

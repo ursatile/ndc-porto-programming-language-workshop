@@ -3,9 +3,9 @@ using Douro.Values;
 
 namespace Douro.Statements;
 
-public class Print(Expression expr) {
+public class Print(Expr expr) {
 
-	public Expression Expr => expr;
+	public Expr Expr => expr;
 	
 	public override string ToString() => this.ToString(0);
 

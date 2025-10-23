@@ -1,10 +1,15 @@
+using System.Globalization;
+
 namespace Douro.Values;
 
-public class Number(string digits) : Value {
-	private readonly decimal value = Decimal.Parse(digits);
+public class Number(decimal value) : Value {
+
+	public Number(string digits) : this(Decimal.Parse(digits)) { }
+
 	public decimal Value => value;
 
-	public override string ToString() => this.ToString(0);
+	public override string ToString()
+		=> value.ToString(CultureInfo.InvariantCulture);
 
 	public override string ToString(int depth)
 		=> $"{String.Empty.PadLeft(depth)}number: {Value}";
