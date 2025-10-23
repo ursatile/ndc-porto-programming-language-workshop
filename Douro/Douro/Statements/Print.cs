@@ -3,16 +3,16 @@ using Douro.Values;
 
 namespace Douro.Statements;
 
-public class Print(Number number) {
+public class Print(Expression expr) {
 
-	public Number Number => number;
+	public Expression Expr => expr;
 	
 	public override string ToString() => this.ToString(0);
 
 	public string ToString(int depth = 0) {
 		var sb = new StringBuilder();
 		sb.AppendLine("print:");
-		sb.AppendLine(number.ToString(depth + 1));
+		sb.AppendLine(expr.ToString(depth + 1));
 		return sb.ToString();
 	}
 }

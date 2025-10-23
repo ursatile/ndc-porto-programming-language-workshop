@@ -4,14 +4,23 @@
 @classname DouroParser
 
 print<Print> =
-	"print" value:number {
-		new Print(value)
+	"print" _ expr:expression {
+		new Print(expr)
 	};
 
-number<Number> =
+expression = sum
+
+sum<Expression>
+	= lhs:number _? "+" _? rhs:sum
+		{ new Binary(lhs, rhs, Operator.Add) }
+	/ number
+
+number<Expression> =
 	digit:("" [0-9]+) {
 		new Number(digit)
 	};
+
+_ = [ \t]+ ;
 
 
 
