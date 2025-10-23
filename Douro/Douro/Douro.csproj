@@ -10,5 +10,13 @@
   <ItemGroup>
     <PackageReference Include="Pegasus" Version="4.1.0" />
   </ItemGroup>
+	<ItemGroup>
+		<PegGrammar Include="douro.peg">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</PegGrammar>
+	</ItemGroup>
+	<ItemGroup>
+		<Watch Include="douro.peg" />
+	</ItemGroup>
 
 </Project>

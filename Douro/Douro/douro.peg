@@ -1,0 +1,5 @@
+@namespace Douro
+@classname DouroParser
+
+number<int> =
+	'2' { 2 };
