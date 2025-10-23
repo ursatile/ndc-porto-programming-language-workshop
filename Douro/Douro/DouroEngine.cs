@@ -26,8 +26,8 @@ public class DouroEngine {
 		}
 	}
 
-	public void Run(Statement[] statements) {
-		foreach (var statement in statements) {
+	public void Run(DouroProgram program) {
+		foreach (var statement in program.Statements) {
 			Run(statement);
 		}
 	}

@@ -3,11 +3,11 @@
 @using Douro.Statements
 @classname DouroParser
 
-program<Statement[]>
+program<Program>
 	= stmt:statement EOS? rest:program {
-		new Statement[] { stmt }
+		rest.Insert(stmt)
 	}
-	/ EOF { new Statement[] {} }
+	/ EOF { new Program() }
 
 statement<Statement>
 	= print

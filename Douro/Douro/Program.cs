@@ -10,8 +10,8 @@ var parser = new DouroParser();
 var engine = new DouroEngine();
 var source = """
              print 1
-             print 2
-             print 3
+             print 2 + 3
+             print 3 + 4 + 5
              """;
 
 Console.WriteLine(source);
