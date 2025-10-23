@@ -1,18 +1,15 @@
 using Douro;
 
-// TODO:
-// 1. Define grammar for output and numbers
-// 2. define syntax nodes for output and numbers
-// 3: build an interpreter which will evaluate those nodes
-// 4: wrap the interpreter in an environment so it works
+if (args.Length < 1) {
+	Console.WriteLine("Usage: Douro <source-file>");
+	Environment.Exit(1);
+}
+
+var filename = args[0];
+var source = File.ReadAllText(filename);
 
 var parser = new DouroParser();
 var engine = new DouroEngine();
-var source = """
-             print 1
-             print 2 + 3
-             print 3 + 4 + 5
-             """;
 
 Console.WriteLine(source);
 var program = parser.Parse(source);
